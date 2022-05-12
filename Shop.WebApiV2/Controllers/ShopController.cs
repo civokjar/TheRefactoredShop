@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Shop.Core.Handlers.Request;
 using Shop.WebApiV2.IO.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Shop.WebApiV2.Controllers
@@ -12,56 +16,24 @@ namespace Shop.WebApiV2.Controllers
     [ApiController]
     public class ShopController : ControllerBase
     {
-
-        public ShopController()
+        private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
+        private readonly ILogger<ShopController> _logger;
+        public ShopController(ILogger<ShopController> logger, IMediator mediator, IMapper mapper)
         {
+            _mediator = mediator;
+            _mapper = mapper;
+            _logger = logger;
         }
 
         [Route("Article/{id}")]
         [HttpGet]
-        public GetArticleResponse GetArtice([FromRoute] int id)
+        public async Task<GetArticleResponse> GetArticle([FromRoute] int id, [FromQuery] int maxPrice, CancellationToken token)
         {
-            GetArticleResponse article = null;
-            GetArticleResponse tmp = null;
-            //var articleExists = CachedSupplier.ArticleInInventory(id);
-            //if (articleExists)
-            //{
-            //    tmp = CachedSupplier.GetArticle(id);
-            //    if (maxExpectedPrice < tmp.Price)
-            //    {
-            //        articleExists = Warehouse.ArticleInInventory(id);
-            //        if (articleExists)
-            //        {
-            //            tmp = Warehouse.GetArticle(id);
-            //            if (maxExpectedPrice < tmp.Price)
-            //            {
-            //                articleExists = Dealer1.ArticleInInventory(id);
-            //                if (articleExists)
-            //                {
-            //                    tmp = Dealer1.GetArticle(id);
-            //                    if (maxExpectedPrice < tmp.Price)
-            //                    {
-            //                        articleExists = Dealer2.ArticleInInventory(id);
-            //                        if (articleExists)
-            //                        {
-            //                            tmp = Dealer2.GetArticle(id);
-            //                            if (maxExpectedPrice < tmp.Price)
-            //                            {
-            //                                article = tmp;
-            //                            }
-            //                        }
-            //                    }
-            //                }
-            //            }
-            //        }
-            //        if (article != null)
-            //        {
-            //            CachedSupplier.SetArticle(article);
-            //        }
-            //    }
-            //}
-
-            return article;
+            _logger.LogDebug("Trying to GetArtice with id=" + id);
+            var coreResult = await _mediator.Send(new GetArticleQuery { Id = id, MaxPrice = maxPrice }, token);
+            var response = _mapper.Map<GetArticleResponse>(coreResult);
+            return response;
         }
 
         //[HttpPost]

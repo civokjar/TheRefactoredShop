@@ -9,6 +9,10 @@ namespace Shop.Caching
 {
     public partial class CacheService<T> : ICacheService<T>
     {
+        public CacheService() { 
+        
+        
+        }
         private static Dictionary<string, CacheItem<T>> Cache { get; set; } = new Dictionary<string, CacheItem<T>>();
         public void Store(string key, T value, TimeSpan expiresAfter)
         {
@@ -32,16 +36,17 @@ namespace Shop.Caching
                 if (!keyExists || Cache[key].Created.AddSeconds(Cache[key].ExpiresAfter.TotalSeconds) < DateTime.Now)
                 {
                     if (keyExists)
-                        return Remove(key);
+                       Remove(key);
+                    return default(T);
                 }
             }
             return Cache[key].Value;
 
         }
-        private T Remove(string key)
+        private void Remove(string key)
         {
             Cache.Remove(key);
-            return default(T);
+           
          
         }
     }

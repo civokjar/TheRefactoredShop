@@ -36,7 +36,6 @@ namespace Vendor.WebApi.Controllers
                 throw new Exception("Article does not exist.");
             }
         }
-        [Route("")]
         public void BuyArticle(Article article, int buyerId)
         {
             var id = article.ID;

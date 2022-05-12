@@ -7,7 +7,7 @@ namespace Shop.Core.Model.Models
 {
     public class Article
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public bool IsSold { get; set; }

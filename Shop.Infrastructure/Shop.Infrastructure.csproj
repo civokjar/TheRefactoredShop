@@ -5,7 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Providers\" />
+    <None Remove="Mappers\Supplier1ApiClientProfile.cs~RF2227947.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ApiClients\Supplier1\IO\Requests\" />
+    <Folder Include="ApiClients\Supplier2\IO\Requests\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shop.Core\Shop.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,12 +1,12 @@
 ﻿using Shop.Core.Model.Models;
 using System;
+using System.Threading.Tasks;
 
 namespace Shop.Repository.Repositories
 {
     public interface IArticleWarehouseRepository
     {
-        Article GetById(Guid id);
+        Task<Article> GetById(int id);
 
-        void Save(string name, int price, int buyerUserId);
     }
 }
