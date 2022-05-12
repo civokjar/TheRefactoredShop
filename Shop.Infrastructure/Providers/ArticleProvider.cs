@@ -2,6 +2,8 @@
 using Shop.Core.Providers;
 using Shop.Infrastructure.ApiClients.Supplier1;
 using Shop.Infrastructure.ApiClients.Supplier2;
+using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,7 +22,7 @@ namespace Shop.Infrastructure.Providers
         }
         public async Task<GetArticleProviderResponse> GetArticle(int id, int maxPrice, CancellationToken token)
         {
-
+       
             var supplier1ArticleResponse = await _supplier1ApiClient.GetArticle(id, token);
             if (supplier1ArticleResponse?.ArticlePrice <= maxPrice)
                 return _mapper.Map<GetArticleProviderResponse>(supplier1ArticleResponse);
