@@ -1,19 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace Shop.WebApiV2.IO.Requests
 {
-    public class GetArticleRequest
+    public class BuyArticleRequest
     {
         [FromRoute]
         [Required]
         public int Id { get; set; }
-        [FromQuery(Name = "MaxExpectedPrice")]
+        [FromBody]
         [Required]
-        public int MaxExpectedPrice { get; set; }
+        public int BuyerId { get; set; }
     }
 }

@@ -1,7 +1,7 @@
-﻿namespace Shop.Core.Handlers.Request
+﻿namespace Shop.WebApiV2.IO.Responses
 {
-    public class GetArticleQueryResult {
-
+    public class BuyArticleResponse
+    {
         public int Id { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }

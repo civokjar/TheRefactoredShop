@@ -10,7 +10,7 @@ namespace Shop.Infrastructure.ApiClients.Supplier2
     public class Supplier2ApiClient : ISupplier2ApiClient
     {
         private readonly string _supplierUrl;
-
+        private const string _supplierName = nameof(Supplier2ApiClient);
         public Supplier2ApiClient(string supplierUrl)
         {
             _supplierUrl = supplierUrl;
@@ -27,7 +27,7 @@ namespace Shop.Infrastructure.ApiClients.Supplier2
 
                 var result = await response.Result.Content.ReadAsStringAsync();
                 var article = JsonConvert.DeserializeObject<Supplier2GetArticleResponse>(result);
-
+               
                 return article;
             }
         }

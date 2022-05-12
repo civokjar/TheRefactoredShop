@@ -1,10 +1,11 @@
-﻿namespace Shop.Core.Handlers.Request
+﻿namespace Shop.Core.Handlers.Command
 {
-    public class GetArticleQueryResult {
-
+    public class BuyArticleCommandResult
+    {
         public int Id { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public string SupplierName { get; set; }
     }
+    
 }

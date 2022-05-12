@@ -2,11 +2,8 @@
 using MediatR;
 using Shop.Core.Caching;
 using Shop.Core.Providers;
-using Shop.Repository.Repositories;
+using Shop.Core.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -37,10 +34,11 @@ namespace Shop.Core.Handlers.Request
             if (cacheResponse != null && cacheResponse.Price <= query.MaxPrice)
                 return cacheResponse;
 
-            var warehouseResponse = await _articleWarehouseRepository.GetById(query.Id);
+            var warehouseResponse = await _articleWarehouseRepository.GetById(query.Id, cancellationToken);
             if (warehouseResponse?.Price <= query.MaxPrice)
             {
                 result = _mapper.Map<GetArticleQueryResult>(warehouseResponse);
+                result.SupplierName = "Warehouse"; //<= could be enum and part of repo logic
             }
             else
             {

@@ -7,5 +7,7 @@
         public string Name_of_article { get; set; }
 
         public int ArticlePrice { get; set; }
+
+        public readonly string SupplierName = "Supplier1";
     }
 }

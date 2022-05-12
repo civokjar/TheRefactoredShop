@@ -9,11 +9,11 @@ using Shop.Caching;
 using Shop.Core.Caching;
 using Shop.Core.Handlers.Request;
 using Shop.Core.Providers;
+using Shop.Core.Repositories;
 using Shop.Core.Repository.Repositories;
 using Shop.Infrastructure.ApiClients.Supplier1;
 using Shop.Infrastructure.ApiClients.Supplier2;
 using Shop.Infrastructure.Providers;
-using Shop.Repository.Repositories;
 
 
 namespace Shop.WebApiV2
