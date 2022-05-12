@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.WebApiV2", "Shop.WebAp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{89C9376F-1E63-427E-B12E-430F370A54BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Core.UnitTests", "Shop.UnitTest\Shop.Core.UnitTests.csproj", "{2D80738F-3162-4BA1-85C7-333FBECF156A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Core.UnitTests", "Shop.Core.UnitTest\Shop.Core.UnitTests.csproj", "{2D80738F-3162-4BA1-85C7-333FBECF156A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.WebApiV2.UnitTests", "Shop.WebApiV2.UnitTest\Shop.WebApiV2.UnitTests.csproj", "{7C11C949-21EA-439E-B610-D77A56F63574}"
 EndProject
