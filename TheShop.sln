@@ -15,9 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Infrastructure", "Shop
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E7074B1A-3954-4202-A03B-7634A7664B8C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Core.Model", "Shop.Model\Shop.Core.Model.csproj", "{08AD4C3C-2A0B-46DC-B45F-F86799899D17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Core.Model", "Shop.Core.Model\Shop.Core.Model.csproj", "{08AD4C3C-2A0B-46DC-B45F-F86799899D17}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Core.Repository", "Shop.Repository\Shop.Core.Repository.csproj", "{158BCEDA-289C-4CDB-A0AF-1F507B3C97BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Core.Repository", "Shop.Core.Repository\Shop.Core.Repository.csproj", "{158BCEDA-289C-4CDB-A0AF-1F507B3C97BC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.WebApiV2", "Shop.WebApiV2\Shop.WebApiV2.csproj", "{E029ED52-FA8E-4FEF-B87A-67C0529EDA55}"
 EndProject

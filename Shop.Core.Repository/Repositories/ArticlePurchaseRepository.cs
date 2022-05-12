@@ -1,4 +1,5 @@
 ﻿using Shop.Core.Model.Models;
+using Shop.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +7,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shop.Repository.Repositories
+namespace Shop.Core.Repository.Repositories
 {
-    public class ArticlePurchaseRepository
+    public class ArticlePurchaseRepository : IArticlePurchaseRepository
     {
         private List<ArticlePurchase> _articles = new List<ArticlePurchase>();
 

@@ -15,9 +15,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shop.Caching\Shop.Caching.csproj" />
+    <ProjectReference Include="..\Shop.Core.Repository\Shop.Core.Repository.csproj" />
     <ProjectReference Include="..\Shop.Core\Shop.Core.csproj" />
     <ProjectReference Include="..\Shop.Infrastructure\Shop.Infrastructure.csproj" />
-    <ProjectReference Include="..\Shop.Repository\Shop.Core.Repository.csproj" />
   </ItemGroup>
 
 </Project>

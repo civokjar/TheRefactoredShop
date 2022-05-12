@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Shop.Core.Model\Shop.Core.Model.csproj" />
     <ProjectReference Include="..\Shop.Core\Shop.Core.csproj" />
-    <ProjectReference Include="..\Shop.Model\Shop.Core.Model.csproj" />
   </ItemGroup>
 
 </Project>

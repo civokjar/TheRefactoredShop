@@ -15,7 +15,6 @@ using Shop.Infrastructure.ApiClients.Supplier1;
 using Shop.Infrastructure.ApiClients.Supplier2;
 using Shop.Infrastructure.Providers;
 
-
 namespace Shop.WebApiV2
 {
     public class Startup
@@ -39,6 +38,7 @@ namespace Shop.WebApiV2
             services.AddMediatR(typeof(GetArticleQueryResult).Assembly);
             services.AddSingleton<ICacheService<GetArticleQueryResult>, CacheService<GetArticleQueryResult>>();
             services.AddScoped<IArticleWarehouseRepository, ArticleWarehouseRepository>();
+            services.AddScoped<IArticlePurchaseRepository, ArticlePurchaseRepository>();
             var suppliersUrl = Configuration.GetSection("Suppliers");
             services.AddScoped<ISupplier1ApiClient>(implementation => new Supplier1ApiClient(Configuration.GetValue<string>("Suppliers:Supplier1Url")));
             services.AddScoped<ISupplier2ApiClient>(implementation => new Supplier2ApiClient(Configuration.GetValue<string>("Suppliers:Supplier2Url")));

@@ -9,6 +9,6 @@ namespace Shop.Core.Repositories
     {
         Task<ArticlePurchase> GetById(Guid id, CancellationToken token);
 
-        Task Save(int articleId, string name, int price, int buyerUserId, CancellationToken token);
+        Task<bool> Save(int articleId, string name, int price, int buyerUserId, CancellationToken token);
     }
 }
