@@ -1,37 +1,28 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using Shop.WebApi.IO.Requests;
-using Shop.WebApi.Models;
-using Shop.WebApi.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Shop.WebApiV2.IO.Responses;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Shop.WebApi.Controllers
+namespace Shop.WebApiV2.Controllers
 {
+    [Route("Shop")]
+    [ApiController]
     public class ShopController : ControllerBase
     {
-        private Db Db;
-        private Logger logger;
-
-        private CachedSupplier CachedSupplier;
-        private Warehouse Warehouse;
-        private Dealer1 Dealer1;
-        private Dealer2 Dealer2;
 
         public ShopController()
         {
-            Db = new Db();
-            logger = new Logger();
-            CachedSupplier = new CachedSupplier();
-            Warehouse = new Warehouse();
-            Dealer1 = new Dealer1();
-            Dealer2 = new Dealer2();
         }
 
         [Route("Article/{id}")]
         [HttpGet]
-        public Article GetArtice([FromRoute] int id)
+        public GetArticleResponse GetArtice([FromRoute] int id)
         {
-            Article article = null;
-            Article tmp = null;
+            GetArticleResponse article = null;
+            GetArticleResponse tmp = null;
             //var articleExists = CachedSupplier.ArticleInInventory(id);
             //if (articleExists)
             //{
@@ -73,34 +64,34 @@ namespace Shop.WebApi.Controllers
             return article;
         }
 
-        [HttpPost]
-        public void BuyArticle(Article article, int buyerId)
-        {
-            var id = article.Id;
-            if (article == null)
-            {
-                throw new Exception("Could not order article");
-            }
+        //[HttpPost]
+        //public void BuyArticle(Article article, int buyerId)
+        //{
+        //    var id = article.Id;
+        //    if (article == null)
+        //    {
+        //        throw new Exception("Could not order article");
+        //    }
 
-            logger.Debug("Trying to sell article with id=" + id);
+        //    logger.Debug("Trying to sell article with id=" + id);
 
-            //article.IsSold = true;
-            //article.DateOfSale = DateTime.Now;
-            //article.BuyerUserId = buyerId;
+        //    //article.IsSold = true;
+        //    //article.DateOfSale = DateTime.Now;
+        //    //article.BuyerUserId = buyerId;
 
-            try
-            {
-                Db.Save(article);
-                logger.Info("Article with id " + id + " is sold.");
-            }
-            catch (ArgumentNullException ex)
-            {
-                logger.Error("Could not save article with id " + id);
-                throw new Exception("Could not save article with id");
-            }
-            catch (Exception)
-            {
-            }
-        }
+        //    try
+        //    {
+        //        Db.Save(article);
+        //        logger.Info("Article with id " + id + " is sold.");
+        //    }
+        //    catch (ArgumentNullException ex)
+        //    {
+        //        logger.Error("Could not save article with id " + id);
+        //        throw new Exception("Could not save article with id");
+        //    }
+        //    catch (Exception)
+        //    {
+        //    }
+        //}
     }
 }

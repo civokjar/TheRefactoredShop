@@ -14,9 +14,9 @@ namespace Shop.WebApi.Services
         {
             return new Article()
             {
-                ID = id,
-                Name_of_article = $"Article {id}",
-                ArticlePrice = new Random().Next(100, 500)
+                Id = id,
+                Name = $"Article {id}",
+                Price = new Random().Next(100, 500)
             };
         }
     }
