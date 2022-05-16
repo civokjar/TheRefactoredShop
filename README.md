@@ -7,7 +7,7 @@ Refactored WebAPI Project is named WebApiV2
 
 ## Things done : 
 - Project layered into multiple project's
-<br/>- Used Command/ Request handler 
+- Used Command/ Request handler 
 <br/>- Added UnitTest's and Perfomance test examples
 <br/>- Added model mapping between layers
 <br/>- Added Generic cache implementation
