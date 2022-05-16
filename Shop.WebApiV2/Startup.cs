@@ -1,4 +1,3 @@
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -6,15 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Shop.Caching;
-using Shop.Core.Caching;
-using Shop.Core.Handlers.Request;
-using Shop.Core.Providers;
-using Shop.Core.Repositories;
-using Shop.Core.Repository.Repositories;
-using Shop.Infrastructure.ApiClients.Supplier1;
-using Shop.Infrastructure.ApiClients.Supplier2;
-using Shop.Infrastructure.Providers;
 using Shop.WebApiV2.Configurations;
 
 namespace Shop.WebApiV2
@@ -36,14 +26,13 @@ namespace Shop.WebApiV2
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop.WebApiV2", Version = "v1" });
             });
-
+          
             var LoggerFactory = new LoggerFactory();
 
             services.ConfigureCoreModule(Configuration, LoggerFactory);
             services.ConfigureInfrastructureModule(Configuration, LoggerFactory);
        
             services.AddAutoMapper(typeof(Startup));
-
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

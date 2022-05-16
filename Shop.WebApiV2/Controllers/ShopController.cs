@@ -32,18 +32,27 @@ namespace Shop.WebApiV2.Controllers
 
         [Route("Article/{id}")]
         [HttpGet]
-        public async Task<GetArticleResponse> GetArticle(GetArticleRequest request, CancellationToken token)
+        [ProducesResponseType(typeof(GetArticleResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetArticle([FromRoute]GetArticleRequest request, CancellationToken token)
         {
             _logger.LogDebug($"Trying to GetArtice with id = {request.Id}");
-            var coreResult = await _mediator.Send(new GetArticleQuery { Id = request.Id, MaxPrice = request.MaxExpectedPrice }, token);
+            var coreResult = await _mediator.Send(new GetArticleQuery { Id = (int)request.Id, MaxPrice = (int)request.MaxExpectedPrice }, token);
+
+            if (coreResult == null)
+                return NoContent();
+            
             var response = _mapper.Map<GetArticleResponse>(coreResult);
-            return response;
+            return Ok(response);
         }
         [Route("Article/{id}/Buy")]
         [HttpPost]
         [ProducesResponseType(typeof(BuyArticleResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> BuyArticle([FromRoute] int id, int buyerId, CancellationToken token)
         {
             _logger.LogDebug($"Trying to GetArtice with id = {id}");

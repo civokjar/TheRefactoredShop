@@ -11,9 +11,9 @@ namespace Shop.WebApiV2.IO.Requests
     {
         [FromRoute]
         [Required]
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [FromQuery(Name = "MaxExpectedPrice")]
         [Required]
-        public int MaxExpectedPrice { get; set; }
+        public int? MaxExpectedPrice { get; set; } = 200;
     }
 }

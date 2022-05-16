@@ -14,15 +14,13 @@ namespace Shop.Core.Handlers.Request
      
         private readonly ICacheService<GetArticleQueryResult> _cacheService;
         private readonly IArticleProvider _articleProvider;
-        private readonly IArticleWarehouseRepository _articleWarehouseRepository;
         private readonly IMapper _mapper;
         readonly string key = nameof(GetArticleQueryResult);
-        public GetArticleQueryHandler(ICacheService<GetArticleQueryResult> cacheService, IArticleProvider articleProvider, IArticleWarehouseRepository articleWarehouseRepository, IMapper mapper)
+        public GetArticleQueryHandler(ICacheService<GetArticleQueryResult> cacheService, IArticleProvider articleProvider, IMapper mapper)
         {
 
             _cacheService = cacheService;
             _articleProvider = articleProvider;
-            _articleWarehouseRepository = articleWarehouseRepository;
             _mapper = mapper;
 
 
@@ -34,18 +32,12 @@ namespace Shop.Core.Handlers.Request
             if (cacheResponse != null && cacheResponse.Price <= query.MaxPrice)
                 return cacheResponse;
 
-            var warehouseResponse = await _articleWarehouseRepository.GetById(query.Id, cancellationToken);
-            if (warehouseResponse?.Price <= query.MaxPrice)
-            {
-                result = _mapper.Map<GetArticleQueryResult>(warehouseResponse);
-                result.SupplierName = "Warehouse"; //<= could be enum and part of repo logic
-            }
-            else
-            {
-                var articleProviderResponse = await _articleProvider.GetArticle(query.Id, query.MaxPrice, cancellationToken);
-                if(articleProviderResponse?.Price <= query.MaxPrice)
-                    result = _mapper.Map<GetArticleQueryResult>(articleProviderResponse);
-            }
+           
+          
+            var articleProviderResponse = await _articleProvider.GetArticle(query.Id, query.MaxPrice, cancellationToken);
+            if(articleProviderResponse?.Price <= query.MaxPrice)
+                result = _mapper.Map<GetArticleQueryResult>(articleProviderResponse);
+     
             if(result != null)
                 _cacheService.Store($"{key}{query.Id}", result, new TimeSpan(0, 0, Convert.ToInt32(120))); // Should be provided during DI
             

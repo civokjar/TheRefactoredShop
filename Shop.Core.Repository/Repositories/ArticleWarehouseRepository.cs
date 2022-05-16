@@ -1,11 +1,9 @@
 ﻿using Shop.Core.Model.Models;
 using Shop.Core.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Shop.Infrastructure.Repositories;
 
 namespace Shop.Core.Repository.Repositories
 {
