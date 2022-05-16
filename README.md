@@ -6,8 +6,7 @@ Refactored WebAPI Project is named WebApiV2
 
 
 ## Things done : 
-<br/>
-<br/>- Project layered into multiple project's
+- Project layered into multiple project's
 <br/>- Used Command/ Request handler 
 <br/>- Added UnitTest's and Perfomance test examples
 <br/>- Added model mapping between layers
@@ -16,8 +15,7 @@ Refactored WebAPI Project is named WebApiV2
 
 
 ## Things that could be improved : 
-<br/>
-<br/>- Generic way of getting the supplier data with DI binding ( HttpClient and mapper implementation ) 
+- Generic way of getting the supplier data with DI binding ( HttpClient and mapper implementation ) 
 <br/>- RestSharp http request implementation
 <br/>- Cache invalidation in certain scenarious when the article is sold
 <br/>- Probably the Repository project is unnecessary when we have Infrastructure project in place, same for Caching
