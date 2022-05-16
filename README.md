@@ -5,7 +5,8 @@ Refactored WebAPI Project is named WebApiV2
 <br/>I haven't done any work on Vendor API project as I thought it is not a subject of code refactoring.
 
 <br/>
-**Things done : **
+## Things done : 
+<br/>
 <br/>- Project layered into multiple project's
 <br/>- Used Command/ Request handler 
 <br/>- Added UnitTest's and Perfomance test examples
@@ -14,8 +15,8 @@ Refactored WebAPI Project is named WebApiV2
 <br/>- Added DataAnotation request validation 
 
 <br/><br/>
-**Things that could be improved : **
-
+## Things that could be improved : 
+<br/>
 <br/>- Generic way of getting the supplier data with DI binding ( HttpClient and mapper implementation ) 
 <br/>- RestSharp http request implementation
 <br/>- Cache invalidation in certain scenarious when the article is sold
