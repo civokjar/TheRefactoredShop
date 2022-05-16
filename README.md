@@ -4,7 +4,7 @@ This is .Net web shop solution
 Refactored WebAPI Project is named WebApiV2
 <br/>I haven't done any work on Vendor API project as I thought it is not a subject of code refactoring.
 
-<br/>
+
 ## Things done : 
 <br/>
 <br/>- Project layered into multiple project's
@@ -14,7 +14,7 @@ Refactored WebAPI Project is named WebApiV2
 <br/>- Added Generic cache implementation
 <br/>- Added DataAnotation request validation 
 
-<br/><br/>
+
 ## Things that could be improved : 
 <br/>
 <br/>- Generic way of getting the supplier data with DI binding ( HttpClient and mapper implementation ) 
