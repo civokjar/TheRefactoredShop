@@ -11,6 +11,7 @@
   <ItemGroup>
     <Folder Include="ApiClients\Supplier1\IO\Requests\" />
     <Folder Include="ApiClients\Supplier2\IO\Requests\" />
+    <Folder Include="ApiClients\Supplier2\IO\Responses\" />
   </ItemGroup>
 
   <ItemGroup>

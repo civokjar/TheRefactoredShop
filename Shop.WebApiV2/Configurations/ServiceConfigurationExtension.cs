@@ -10,8 +10,10 @@ using Shop.Core.Repositories;
 using Shop.Core.Repository.Repositories;
 using Shop.Infrastructure.ApiClients.Supplier1;
 using Shop.Infrastructure.ApiClients.Supplier2;
+using Shop.Infrastructure.Interfaces;
 using Shop.Infrastructure.Providers;
 using Shop.Infrastructure.Repositories;
+using Shop.Infrastructure.Services;
 
 namespace Shop.WebApiV2.Configurations
 {
@@ -22,8 +24,9 @@ namespace Shop.WebApiV2.Configurations
             var supplier1Logger = loggerFactory.CreateLogger<Supplier1ApiClient>();
             var supplier2Logger = loggerFactory.CreateLogger<Supplier2ApiClient>();
 
-            services.AddScoped<ISupplier1ApiClient>(client => new Supplier1ApiClient(configuration.GetValue<string>("Suppliers:Supplier1Url"), supplier1Logger));
-            services.AddScoped<ISupplier2ApiClient>(client => new Supplier2ApiClient(configuration.GetValue<string>("Suppliers:Supplier2Url"), supplier2Logger));
+            services.AddScoped<IArticleRetriever, ArticleWarehouseService>();
+            services.AddScoped<IArticleRetriever>(client => new Supplier1ApiClient(configuration.GetValue<string>("Suppliers:Supplier1Url"), supplier1Logger));
+            services.AddScoped<IArticleRetriever>(client => new Supplier2ApiClient(configuration.GetValue<string>("Suppliers:Supplier2Url"), supplier2Logger));
             services.AddScoped<IArticleWarehouseRepository, ArticleWarehouseRepository>();
             
             services.AddScoped<IArticleProvider, ArticleProvider>();

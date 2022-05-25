@@ -9,7 +9,7 @@ namespace Shop.WebApiV2.IO.Requests
 {
     public class GetArticleRequest
     {
-        [FromRoute]
+        [FromRoute(Name = "id")]
         [Required]
         public int? Id { get; set; }
         [FromQuery(Name = "MaxExpectedPrice")]

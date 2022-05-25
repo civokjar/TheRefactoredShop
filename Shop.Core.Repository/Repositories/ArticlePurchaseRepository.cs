@@ -21,7 +21,7 @@ namespace Shop.Core.Repository.Repositories
         {
             Guid guid = Guid.NewGuid();
 
-            _articles.Add(new ArticlePurchase { Id = guid, BuyerUserId = buyerUserId, Name = name, Price = price, ArticleId = articleId });
+            _articles.Add(new ArticlePurchase ( guid, articleId, price, buyerUserId));
             return Task.FromResult(true);
             // Just mimicking db call
         }

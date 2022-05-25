@@ -2,6 +2,7 @@
 using Shop.Core.Providers;
 using Shop.Infrastructure.ApiClients.Supplier1;
 using Shop.Infrastructure.ApiClients.Supplier2;
+using Shop.Infrastructure.Interfaces;
 using Shop.Infrastructure.Repositories;
 using System.Collections.Generic;
 using System.Threading;
@@ -11,33 +12,25 @@ namespace Shop.Infrastructure.Providers
 {
     public class ArticleProvider : IArticleProvider
     {
-        private readonly ISupplier1ApiClient _supplier1ApiClient;
-        private readonly ISupplier2ApiClient _supplier2ApiClient;
+        private readonly IEnumerable<IArticleRetriever> _articleRetrievers;
         private readonly IMapper _mapper;
-        private readonly IArticleWarehouseRepository _articleWarehouseRepository;
-        public ArticleProvider(ISupplier1ApiClient supplier1ApiClient, ISupplier2ApiClient supplier2ApiClient, IArticleWarehouseRepository articleWarehouseRepository, IMapper mapper)
+        public ArticleProvider(IEnumerable<IArticleRetriever> articleRetrievers, IMapper mapper)
         {
-            _supplier1ApiClient = supplier1ApiClient;
-            _supplier2ApiClient = supplier2ApiClient;
-            _articleWarehouseRepository = articleWarehouseRepository; 
+            _articleRetrievers = articleRetrievers;
             _mapper = mapper;
         }
         public async Task<GetArticleProviderResponse> GetArticle(int id, int maxPrice, CancellationToken token)
         {
-            // I guess I could create a factory or some generic implementation of this logic
-            var warehouseResponse = await _articleWarehouseRepository.GetById(id, token);
-            if (warehouseResponse?.Price <= maxPrice)
+            foreach (var _retriever in _articleRetrievers)
             {
-                return _mapper.Map<GetArticleProviderResponse>(warehouseResponse);
+                var retrievedResponse = await _retriever.GetArticle(id, token);
+                if (retrievedResponse?.ArticlePrice <= maxPrice)
+                {
+                    var response = _mapper.Map<GetArticleProviderResponse>(retrievedResponse);
+                    response.SupplierName = _retriever.GetType().Name;
+                    return response;
+                }
             }
-            var supplier1ArticleResponse = await _supplier1ApiClient.GetArticle(id, token);
-            if (supplier1ArticleResponse?.ArticlePrice <= maxPrice)
-                return _mapper.Map<GetArticleProviderResponse>(supplier1ArticleResponse);
-
-            var supplier2ArticleResponse = await _supplier2ApiClient.GetArticle(id, token);
-            if (supplier2ArticleResponse?.ArticlePrice <= maxPrice)
-                return _mapper.Map<GetArticleProviderResponse>(supplier2ArticleResponse);
-
             return default(GetArticleProviderResponse);
         }
 

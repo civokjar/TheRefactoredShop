@@ -1,6 +1,6 @@
 ﻿namespace Shop.Infrastructure.ApiClients.Supplier1.IO.Responses
 {
-    public class Supplier1GetArticleResponse
+    public class GetArticleResponse
     {
         public int ID { get; set; }
 
@@ -8,6 +8,6 @@
 
         public int ArticlePrice { get; set; }
 
-        public readonly string SupplierName = "Supplier1";
+        public string SupplierName { get; set; }
     }
 }

@@ -3,24 +3,23 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Shop.Infrastructure.ApiClients.Supplier1;
-using Shop.Infrastructure.ApiClients.Supplier1.IO.Responses;
-using Shop.Infrastructure.ApiClients.Supplier2.IO.Responses;
+using Shop.Infrastructure.Interfaces;
+using Shop.Infrastructure.Models;
 
 namespace Shop.Infrastructure.ApiClients.Supplier2
 {
-    public class Supplier2ApiClient : ISupplier2ApiClient
+    public class Supplier2ApiClient : IArticleRetriever
     {
         private readonly string _supplierUrl;
         private const string _supplierName = nameof(Supplier2ApiClient);
         private readonly ILogger _logger;
-        public Supplier2ApiClient(string supplierUrl, ILogger<Supplier2ApiClient> logger)
+        public Supplier2ApiClient(string supplierUrl, ILogger logger)
         {
             _supplierUrl = supplierUrl;
             _logger = logger;
         }
 
-        public async Task<Supplier2GetArticleResponse> GetArticle(int id, CancellationToken token)
+        public async Task<GetArticleResponse> GetArticle(int id, CancellationToken token)
         {
             using (var client = new HttpClient())
             {
@@ -33,7 +32,7 @@ namespace Shop.Infrastructure.ApiClients.Supplier2
                 }
 
                 var result = await response.Content.ReadAsStringAsync();
-                var article = JsonConvert.DeserializeObject<Supplier2GetArticleResponse>(result);
+                var article = JsonConvert.DeserializeObject<GetArticleResponse>(result);
                
                 return article;
             }

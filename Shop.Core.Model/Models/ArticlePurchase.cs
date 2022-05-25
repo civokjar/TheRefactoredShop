@@ -7,12 +7,17 @@ namespace Shop.Core.Model.Models
 {
     public class ArticlePurchase
     {
-        public Guid Id { get; set; }
-        public int ArticleId { get; set; }
-        public string Name { get; set; }
-        public int Price { get; set; }
-        public bool IsSold { get; set; }
-        public DateTime DateOfSale { get; set; }
-        public int BuyerUserId { get; set; }
+        public ArticlePurchase(Guid id, int articleId, decimal price, int buyerId) {
+
+            Id = id;
+            ArticleId = articleId;
+            Price = price;
+            BuyerUserId = buyerId;
+        
+        }
+        public readonly Guid Id;
+        public readonly int ArticleId;
+        public readonly decimal Price;
+        public readonly int BuyerUserId;
     }
 }
