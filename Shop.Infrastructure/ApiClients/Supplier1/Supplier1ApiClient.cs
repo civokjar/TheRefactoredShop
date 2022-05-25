@@ -12,32 +12,30 @@ namespace Shop.Infrastructure.ApiClients.Supplier1
 {
     public class Supplier1ApiClient : IArticleRetriever
     {
-        private readonly string _supplierUrl;
+
+        private readonly HttpClient _client;
         private readonly ILogger _logger;
-        private const string _supplierName = nameof(Supplier1ApiClient);
-        public Supplier1ApiClient(string supplierUrl, ILogger<Supplier1ApiClient> logger)
+        public Supplier1ApiClient(HttpClient client, ILogger<Supplier1ApiClient> logger)
         {
-            _supplierUrl = supplierUrl;
+            _client = client;
             _logger = logger;
-}
+        }
 
         public async Task<GetArticleResponse> GetArticle(int id, CancellationToken token)
         {
-            using (var client = new HttpClient())
+            var response = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Get, $"{_client.BaseAddress}/api/supplier/{id}"), token);
+
+            if (!response.IsSuccessStatusCode)
             {
-                var response = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, $"{_supplierUrl}/api/supplier/{id}"), token);
-              
-                if (!response.IsSuccessStatusCode)
-                {
-                    _logger.LogWarning($"{_supplierName} failed during GetArticle({id}) call with status code : {response?.StatusCode}");
-                    return null;
-                }
-                var result = await response.Content.ReadAsStringAsync();
-
-                var article = JsonConvert.DeserializeObject<GetArticleResponse>(result);
-
-                return article;
+                _logger.LogWarning($"Supplier2ApiClient failed during GetArticle({id}) call with status code : {response?.StatusCode}");
+                return null;
             }
+
+            var result = await response.Content.ReadAsStringAsync();
+            var article = JsonConvert.DeserializeObject<GetArticleResponse>(result);
+
+            return article;
+
         }
     }
 }

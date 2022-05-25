@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Polly;
+using Polly.Extensions.Http;
 using Shop.Caching;
 using Shop.Core.Caching;
 using Shop.Core.Handlers.Request;
@@ -14,6 +16,8 @@ using Shop.Infrastructure.Interfaces;
 using Shop.Infrastructure.Providers;
 using Shop.Infrastructure.Repositories;
 using Shop.Infrastructure.Services;
+using System;
+using System.Net.Http;
 
 namespace Shop.WebApiV2.Configurations
 {
@@ -25,8 +29,17 @@ namespace Shop.WebApiV2.Configurations
             var supplier2Logger = loggerFactory.CreateLogger<Supplier2ApiClient>();
 
             services.AddScoped<IArticleRetriever, ArticleWarehouseService>();
-            services.AddScoped<IArticleRetriever>(client => new Supplier1ApiClient(configuration.GetValue<string>("Suppliers:Supplier1Url"), supplier1Logger));
-            services.AddScoped<IArticleRetriever>(client => new Supplier2ApiClient(configuration.GetValue<string>("Suppliers:Supplier2Url"), supplier2Logger));
+       
+            services.AddHttpClient<IArticleRetriever, Supplier1ApiClient>(client =>
+            {
+                client.BaseAddress = new Uri(configuration.GetValue<string>("Suppliers:Supplier1Url"));
+            }).AddPolicyHandler(GetRetryPolicy(configuration));
+
+            services.AddHttpClient<IArticleRetriever, Supplier2ApiClient>(client =>
+            {
+                client.BaseAddress = new Uri(configuration.GetValue<string>("Suppliers:Supplier2Url"));
+            }).AddPolicyHandler(GetRetryPolicy(configuration));
+
             services.AddScoped<IArticleWarehouseRepository, ArticleWarehouseRepository>();
             
             services.AddScoped<IArticleProvider, ArticleProvider>();
@@ -44,6 +57,13 @@ namespace Shop.WebApiV2.Configurations
             services.AddAutoMapper(typeof(GetArticleQueryResult));
 
 
+        }
+        static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy(IConfiguration configuration)
+        {
+            return HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+                .WaitAndRetryAsync(configuration.GetValue<int>("Suppliers:MaxRetryCount"), retryAttempt => TimeSpan.FromSeconds(Math.Pow(configuration.GetValue<int>("Suppliers:RetryDelayInSeconds"), retryAttempt)));
         }
     }
 }
