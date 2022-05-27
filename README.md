@@ -1,4 +1,6 @@
 # TheRefactoredShop
+https://github.com/civokjar/TheShop
+
 This is .Net web shop solution
 <br/>
 Refactored WebAPI Project is named WebApiV2
