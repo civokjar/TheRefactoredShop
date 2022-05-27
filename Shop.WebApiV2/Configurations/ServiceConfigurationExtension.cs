@@ -25,9 +25,6 @@ namespace Shop.WebApiV2.Configurations
     {
         public static void ConfigureInfrastructureModule(this IServiceCollection services, IConfiguration configuration, ILoggerFactory loggerFactory)
         {
-            var supplier1Logger = loggerFactory.CreateLogger<Supplier1ApiClient>();
-            var supplier2Logger = loggerFactory.CreateLogger<Supplier2ApiClient>();
-
             services.AddScoped<IArticleRetriever, ArticleWarehouseService>();
        
             services.AddHttpClient<IArticleRetriever, Supplier1ApiClient>(client =>
@@ -43,7 +40,7 @@ namespace Shop.WebApiV2.Configurations
             services.AddScoped<IArticleWarehouseRepository, ArticleWarehouseRepository>();
             
             services.AddScoped<IArticleProvider, ArticleProvider>();
-            services.AddAutoMapper(typeof(Supplier2ApiClient));
+            services.AddAutoMapper(typeof(ArticleProvider));
 
 
         }
