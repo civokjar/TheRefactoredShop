@@ -15,7 +15,6 @@ Refactored WebAPI Project is named WebApiV2
 
 
 ## Things that could be improved : 
-- Generic way of getting the supplier data with DI binding ( HttpClient and mapper implementation ) 
 - RestSharp http request implementation
 - Cache invalidation in certain scenarious when the article is sold
 - Probably the Repository project is unnecessary when we have Infrastructure project in place, same for Caching
